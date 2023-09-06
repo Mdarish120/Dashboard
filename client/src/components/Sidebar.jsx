@@ -1,199 +1,182 @@
-import React from "react";
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import {
-  SettingsOutlined,
-  ChevronLeft,
-  ChevronRightOutlined,
-  HomeOutlined,
-  ShoppingCartOutlined,
-  Groups2Outlined,
-  ReceiptLongOutlined,
-  PublicOutlined,
-  PointOfSaleOutlined,
-  TodayOutlined,
-  CalendarMonthOutlined,
-  AdminPanelSettingsOutlined,
-  TrendingUpOutlined,
-  PieChartOutlined,
-} from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import FlexBetween from "./FlexBetween";
-import profileImage from "assets/profile.jpeg";
+import React ,{useState,useEffect}from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import FlexBetween from './FlexBetween';
+import profileImage from "assets/profile.jpeg"
 
-const navItems = [
-  {
-    text: "Dashboard",
-    icon: <HomeOutlined />,
-  },
-  {
-    text: "Client Facing",
-    icon: null,
-  },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
-  {
-    text: "Customers",
-    icon: <Groups2Outlined />,
-  },
-  {
-    text: "Transactions",
-    icon: <ReceiptLongOutlined />,
-  },
-  {
-    text: "Geography",
-    icon: <PublicOutlined />,
-  },
-  {
-    text: "Sales",
-    icon: null,
-  },
-  {
-    text: "Overview",
-    icon: <PointOfSaleOutlined />,
-  },
-  {
-    text: "Daily",
-    icon: <TodayOutlined />,
-  },
-  {
-    text: "Monthly",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
-];
+import { Box,Divider,Drawer,
+    IconButton,List,ListItem,
+    ListItemButton,ListItemIcon,
+    ListItemText,
+    Typography,useTheme } from "@mui/material";
+  import { 
+    SettingsOutlined,
+    ChevronLeft,
+    ChevronRightOutlined,
+    HomeOutlined,
+    ShoppingCartOutlined,
+    Groups2Outlined,
+    ReceiptLongOutlined,
+    PointOfSaleOutlined,
+    TodayOutlined,
+    CalendarMonthOutlined,
+    AdminPanelSettingsOutlined,
+    TrendingUpOutlined,
+    PieChartOutline,
+    PublicOff,
+    PublicOutlined
+
+} from '@mui/icons-material';  
+
+
+const navItems=[
+  {  text:"Dashboard",
+  icon:<HomeOutlined/>
+   }, 
+   {  text:"Client Facing",
+   icon:null
+    },
+     {  text:"Products",
+    icon:<ShoppingCartOutlined/>
+     },
+      {  text:"Customers",
+     icon:<Groups2Outlined/>
+      },
+       {  text:"Transaction",
+      icon:<ReceiptLongOutlined/>
+       }, 
+       {  text:"Geography",
+       icon:<PublicOutlined/>
+
+        },{  text:"Sales",
+        icon:null
+         },{  text:"Overview",
+         icon:<PointOfSaleOutlined/>
+          },{  text:"Daily",
+          icon:<TodayOutlined/>
+           }
+           ,{  text:"Monthly",
+           icon:<CalendarMonthOutlined/>
+            },
+            {  text:"Breakdown",
+            icon:<PieChartOutline/>
+             }, {  text:"Management",
+             icon:null
+              }, {  text:"Admin",
+              icon:<AdminPanelSettingsOutlined/>
+               },
+              
+]
 
 const Sidebar = ({
-  user,
-  drawerWidth,
-  isSidebarOpen,
-  setIsSidebarOpen,
-  isNonMobile,
+     user,
+    drawerWidth,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isNonMobile
 }) => {
-  const { pathname } = useLocation();
-  const [active, setActive] = useState("");
-  const navigate = useNavigate();
-  const theme = useTheme();
+   
 
-  useEffect(() => {
-    setActive(pathname.substring(1));
-  }, [pathname]);
+  const { pathname } = useLocation();
+     const [isActive,setIsActive]=useState("");
+     const navigate=useNavigate();
+     const theme=useTheme();
+
+
+     useEffect(()=>{
+
+       setIsActive(pathname.substring(1));      
+      },[pathname])
 
   return (
-    <Box component="nav">
-      {isSidebarOpen && (
-        <Drawer
-          open={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          variant="persistent"
-          anchor="left"
+<Box component="nav">
+ {isSidebarOpen && (
+    <Drawer
+    open={isSidebarOpen}
+    onClose={()=>setIsSidebarOpen(false)}
+    variant='persistent'
+    anchor='left'
+    sx={{
+      width: drawerWidth,
+      "& .MuiDrawer-paper": {
+        color: theme.palette.secondary[200],
+        backgroundColor: theme.palette.background.alt,
+        boxSixing: "border-box",
+        borderWidth: isNonMobile ? 0 : "2px",
+        width: drawerWidth,
+        //overflow: "hidden",
+        '&::-webkit-scrollbar': {
+          width: '0.3em', // Change this width to adjust the scrollbar width
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'gray',// Change this color to customize the scrollbar thumb
+        },
+      },
+     
+    }}
+    >
+    <Box width="100%">
+     <Box m="1.5rem 2rem 2rem 3rem">
+      <FlexBetween color={theme.palette.secondary.main}>
+       <Box display="flex" alignItems="center" gap="0.5">
+        <Typography variant='h4' fontWeight="bold">
+         ECOMVISION
+        </Typography>
+       </Box>
+
+       {!isNonMobile && (
+        <IconButton onClick={()=>setIsSidebarOpen(!isSidebarOpen)}>
+         <ChevronLeft/>
+        </IconButton>
+       )}
+      </FlexBetween>
+     </Box>
+     <List>
+     {
+  navItems.map(({ text, icon }) => {
+    if (!icon) {
+      return (
+        <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
+          {text}
+        </Typography>
+      );
+    }
+
+    const lcsText = text.toLowerCase();
+    return (
+      <ListItem key={lcsText} disablePadding>
+        <ListItemButton
+          onClick={() => {
+            navigate(`/${lcsText}`);
+           // setIsActive(lcsText);
+          }}
           sx={{
-            width: drawerWidth,
-            "& .MuiDrawer-paper": {
-              color: theme.palette.secondary[200],
-              backgroundColor: theme.palette.background.alt,
-              boxSixing: "border-box",
-              borderWidth: isNonMobile ? 0 : "2px",
-              width: drawerWidth,
-            },
+            backgroundColor: isActive === lcsText ? theme.palette.secondary[300] : "transparent",
+            color: isActive === lcsText ? theme.palette.primary[600] : theme.palette.secondary[100],
           }}
         >
-          <Box width="100%">
-            <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.secondary.main}>
-                <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
-                  </Typography>
-                </Box>
-                {!isNonMobile && (
-                  <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                    <ChevronLeft />
-                  </IconButton>
-                )}
-              </FlexBetween>
-            </Box>
-            <List>
-              {navItems.map(({ text, icon }) => {
-                if (!icon) {
-                  return (
-                    <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
-                      {text}
-                    </Typography>
-                  );
-                }
-                const lcText = text.toLowerCase();
+          <ListItemIcon
+            sx={{
+              ml: "2rem",
+              color: isActive === lcsText ? theme.palette.primary[600] : theme.palette.secondary[200],
+            }}
+          >
+            {icon}
+          </ListItemIcon>
+          <ListItemText primary={text}>
+            {isActive === lcsText && (
+              <ChevronRightOutlined sx={{ ml: "auto" }} />
+            )}
+          </ListItemText>
+        </ListItemButton>
+      </ListItem>
+    )
+  })
+}
 
-                return (
-                  <ListItem key={text} disablePadding>
-                    <ListItemButton
-                      onClick={() => {
-                        navigate(`/${lcText}`);
-                        setActive(lcText);
-                      }}
-                      sx={{
-                        backgroundColor:
-                          active === lcText
-                            ? theme.palette.secondary[300]
-                            : "transparent",
-                        color:
-                          active === lcText
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          ml: "2rem",
-                          color:
-                            active === lcText
-                              ? theme.palette.primary[600]
-                              : theme.palette.secondary[200],
-                        }}
-                      >
-                        {icon}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                      {active === lcText && (
-                        <ChevronRightOutlined sx={{ ml: "auto" }} />
-                      )}
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </Box>
+     </List> 
+    </Box>
 
-          <Box position="absolute" bottom="2rem">
+    <Box sx={{mt:"4rem"}}>
             <Divider />
             <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
               <Box
@@ -228,10 +211,12 @@ const Sidebar = ({
               />
             </FlexBetween>
           </Box>
-        </Drawer>
-      )}
-    </Box>
-  );
-};
+    </Drawer>
+
+    
+ )}
+</Box>
+  )
+}
 
 export default Sidebar;
